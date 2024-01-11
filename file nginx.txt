@@ -51,15 +51,20 @@ server {
                 proxy_set_header Connection 'upgrade';
                 proxy_set_header Host $host;
                 proxy_cache_bypass $http_upgrade;
-                limit_req zone=one;
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
 
         }
+        location /threads {
+            proxy_pass http://localhost:5000
+            limit_req zone=one;
+        }
+
+
 
         # pass PHP scripts to FastCGI server
         #
-	#
+	    #  
         #location ~ \.php$ {
         #       include snippets/fastcgi-php.conf;
         #
